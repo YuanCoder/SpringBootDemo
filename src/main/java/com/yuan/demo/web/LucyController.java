@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 另外需要在应用类或者application类，加EnableConfigurationProperties注解。
- * Created by fangzhipeng on 2017/4/18.
+ * Created by Yuanjp on 2017/4/18.
  */
 @RestController
 @EnableConfigurationProperties({ConfigBean.class,User.class})
