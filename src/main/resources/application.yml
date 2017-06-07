@@ -1,0 +1,17 @@
+my:
+ name: yuan
+ age: 24
+ number:  ${random.int}
+ uuid : ${random.uuid}
+ max: ${random.int(10)}
+ value: ${random.value}
+ greeting: hi,i'm  ${my.name}
+
+spring:
+  profiles:
+    active: dev
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test
+    username: root
+    password: yuan
