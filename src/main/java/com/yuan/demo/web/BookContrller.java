@@ -11,6 +11,7 @@ import java.util.*;
 
 /**
  * swagger通过注解表明该接口会生成文档，包括接口名、请求方法、参数、返回信息的等等。
+ *  通过 http://localhost:8082/swagger-ui.html#/ 查看文档
 
  @Api：修饰整个类，描述Controller的作用
  @ApiOperation：描述一个类的一个方法，或者说一个接口
