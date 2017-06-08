@@ -10,7 +10,7 @@ my:
 spring:
   profiles:
     active: dev
-  datasource:
+  datasource: #    通过引入这些依赖和配置一些基本信息，springboot就可以用JdbcTemplates访问数据库类。
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/test
     username: root

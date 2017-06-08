@@ -5,6 +5,7 @@ import com.yuan.demo.entity.Account;
 import java.util.List;
 
 /**
+ *J dbcTemplates  dao
  * Created by Yuanjp on 2017/6/5 0005.
  */
 public interface IAccountDAO {
