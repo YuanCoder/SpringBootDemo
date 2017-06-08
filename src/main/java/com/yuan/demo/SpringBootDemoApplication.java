@@ -1,8 +1,12 @@
 package com.yuan.demo;
 
 import com.yuan.demo.message.Receiver;
+import com.yuan.demo.storage.StorageProperties;
+import com.yuan.demo.storage.StorageService;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -16,6 +20,7 @@ import java.util.concurrent.CountDownLatch;
 import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 
 @SpringBootApplication
+@EnableConfigurationProperties(StorageProperties.class)
 public class SpringBootDemoApplication {
 
 	public static void main(String[] args) throws InterruptedException {
@@ -31,7 +36,7 @@ public class SpringBootDemoApplication {
 
 		latch.await();
 
- 		System.exit(0);//exit(0)方法把内存都释放了，也就是说连JVM都关闭了，内存里根本不可能还有什么东西    而System.exit(1)或者说非0表示非正常退出程序
+// 		System.exit(0);//exit(0)方法把内存都释放了，也就是说连JVM都关闭了，内存里根本不可能还有什么东西    而System.exit(1)或者说非0表示非正常退出程序
 	}
 
 	/*在spring data redis中，利用redis发送一条消息和接受一条消息，需要三样东西：
@@ -74,5 +79,19 @@ public class SpringBootDemoApplication {
 	MessageListenerAdapter listenerAdapter(Receiver receiver) {
 		return new MessageListenerAdapter(receiver, "receiveMessage");
 	}
+
+	/**
+	 * 上传下载文件  初始化
+	 * @param storageService
+	 * @return
+     */
+	@Bean
+	CommandLineRunner init(StorageService storageService) {
+		return (args) -> {
+			storageService.deleteAll();
+			storageService.init();
+		};
+	}
+
 
 }
