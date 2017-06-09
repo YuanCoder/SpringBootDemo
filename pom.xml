@@ -97,6 +97,12 @@
 			<version>2.6.1</version>
 		</dependency>
 
+		<!--Springboot整合RabbitMQ-->
+		<!--引入spring-boot-starter-amqp依赖-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
