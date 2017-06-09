@@ -15,7 +15,7 @@ spring:
     url: jdbc:mysql://localhost:3306/test
     username: root
     password: yuan
-  redis:
+  redis:   #Redis  整合
     host: localhost
     port: 6379
     password: yuan
@@ -25,3 +25,7 @@ spring:
     max-idle: 500
     min-idle: 0
     timeout: 0
+  http:
+    multipart:
+      max-file-size: 128KB
+      max-request-size: 128KB
