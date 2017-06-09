@@ -14,12 +14,14 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.listener.PatternTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.util.concurrent.CountDownLatch;
 
 import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 
 @SpringBootApplication
+@EnableScheduling //开启调度任务
 @EnableConfigurationProperties(StorageProperties.class)
 public class SpringBootDemoApplication {
 
