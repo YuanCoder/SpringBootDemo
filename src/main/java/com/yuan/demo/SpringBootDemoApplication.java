@@ -14,16 +14,26 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.listener.PatternTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
+import org.springframework.scheduling.annotation.AsyncConfigurerSupport;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executor;
 
 import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 
+/**
+ * ① 利用@EnableAsync注解开启异步任务支持。
+ ② 配置类实现AsyncConfigurer接口并重写getAsyncExecutor方法，并返回ThreadPoolTaskExecutor ，这样就获得了一个基于线程池的TaskExecutor。
+ */
 @SpringBootApplication
 @EnableScheduling //开启调度任务
+@EnableAsync //开启异步任务；并且配置AsyncConfigurerSupport，比如最大的线程池为2
+
 @EnableConfigurationProperties(StorageProperties.class)
-public class SpringBootDemoApplication {
+public class SpringBootDemoApplication extends AsyncConfigurerSupport {
 
 	public static void main(String[] args) throws InterruptedException {
 
@@ -96,4 +106,15 @@ public class SpringBootDemoApplication {
 	}
 
 
+	//开启异步任务
+	@Override
+	public Executor getAsyncExecutor() {
+		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+		executor.setCorePoolSize(2);
+		executor.setMaxPoolSize(2);
+		executor.setQueueCapacity(500);
+		executor.setThreadNamePrefix("GithubLookup-");
+		executor.initialize();
+		return executor;
+	}
 }
